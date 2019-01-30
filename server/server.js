@@ -10,11 +10,6 @@ const app = express()
 const server = http.createServer(app)
 const io = socketIO(server)
 
-//consol message connect client
-io.on('connection', () => {
-    console.log('IO Connection')
-})
-
 app.use(express.static(clientPath))
 
 //consol message start server
@@ -22,19 +17,14 @@ server.listen(port, () => {
     console.log('Server has been started on port ' + port)
 })
 
-//show console
+// //show
 io.on('connection', function(socket){
     socket.on('chat message', function(msg){
         console.log('message: ' + msg)
-    })
-})
-
-//show display
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
         io.emit('chat message', msg)
     })
 })
+
 
 
 
